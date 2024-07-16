@@ -20,3 +20,20 @@ exports.createShortUrl = async (req, res) => {
     res.status(500).send('Server Error');
   }
 };
+
+// Function to handle redirect to the original URL
+exports.redirectToOriginalUrl = async (req, res) => {
+  const shortUrl = req.params.shortUrl;
+  
+  try {
+    const url = await Url.findOne({ shortUrl });
+    if (url) {
+      res.redirect(url.originalUrl);
+    } else {
+      res.status(404).send('URL not found');
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+};

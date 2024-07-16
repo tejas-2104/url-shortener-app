@@ -4,11 +4,13 @@ const mongoose = require('mongoose');
 const app = express();
 const port = 10000;
 
+require('dotenv').config();
+
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-// Connect to MongoDB
+// Connect to MongoDB Atlas
 mongoose.connect(process.env.MONGODB_URI);
 
 // Import routes
